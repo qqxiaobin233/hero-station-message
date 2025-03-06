@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // axios 公共配置-http://geek.itheima.net
-axios.defaults.baseURL= 'http://geek.itheima.net'
+axios.defaults.baseURL= 'https://4e8cfd84.r7.cpolar.top'
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {

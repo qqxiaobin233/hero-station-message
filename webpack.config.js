@@ -96,6 +96,12 @@ const config = {
       new CssMinimizerPlugin(),
     ],
   },
+
+  //
+  externals: {
+    'wangeditor': 'window.wangEditor'
+  },
+
   //解析
   resolve: {
     alias: {
