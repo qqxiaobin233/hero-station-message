@@ -18,9 +18,11 @@ document.querySelector('.btn').addEventListener('click', () => {
   }).then(result=>{
     Myalert(true,'登录成功')
     localStorage.setItem('token',result.data.token)
-    location.href = '../content/index.html'
-  }).catch(err=>{
-    Myalert(false,'登录失败',err.response.data.message)
+    setTimeout(() => {
+      location.href = '../content/index.html';
+  }, 1000);
+  }).catch(error=>{
+    Myalert(false,error.response.data.msg)
   })
   console.log('提交到服务器登录...')
 })

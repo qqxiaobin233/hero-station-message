@@ -23,7 +23,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   // 超出 2xx 范围的状态码都会触发该函数。
   // 对响应错误做点什么
-  if(error.response.data!==201){
+  if(error.response && error.response.status !== 200){
     localStorage.removeItem('token')
     location.href = '../login/index.html'
   }
