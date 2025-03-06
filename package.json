@@ -30,6 +30,7 @@
     "@wangeditor/editor": "^5.1.23",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
-    "form-serialize": "^0.7.2"
+    "form-serialize": "^0.7.2",
+    "wangeditor": "^4.7.15"
   }
 }

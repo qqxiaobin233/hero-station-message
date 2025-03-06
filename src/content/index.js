@@ -31,19 +31,19 @@ async function setArtileList() {
   </td>
   <td>${item.title}</td>
   <td>
-    ${item.status === 1 ? `<span class="badge text-bg-primary">待审核</span>` : `<span class="badge text-bg-success">审核通过</span>`}
+  ${item.status === 1 ? `<span class="badge text-bg-primary">待审核</span>` : `<span class="badge text-bg-success">审核通过</span>`}
   </td>
   <td>
-    <span>${item.pubdate}</span>
+    ${item.pubdate}
   </td>
   <td>
-    <span>${item.read_count}</span>
+    ${item.read_count}
   </td>
   <td>
-    <span>${item.comment_count}</span>
+    ${item.comment_count}
   </td>
   <td>
-    <span>${item.like_count}</span>
+    ${item.like_count}
   </td>
   <td data-id="${item.id}">
     <i class="bi bi-pencil-square edit"></i>

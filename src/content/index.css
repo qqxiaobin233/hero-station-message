@@ -74,7 +74,6 @@ html, body{
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ebeef5;
-  
 }
 
 /* 表单部分 */
@@ -102,4 +101,44 @@ html, body{
 .page-now{
   line-height: 40px;
   padding: 0 20px;
+}
+
+.table>:not(caption)>*>* {
+  padding: 1.5rem 0.5rem;
+}
+
+.table th{
+  text-align: center;
+}
+.table td{
+  text-align: center;
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 10%;
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 10%;
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 10%;
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 30%;
+}
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 30%;
+}
+
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  width: 10%;
 }
