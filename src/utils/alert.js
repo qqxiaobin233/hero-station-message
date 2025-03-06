@@ -6,13 +6,13 @@
  * @param {*} msg 提示消息
  */
 export function Myalert(isSuccess,msg){
-    const myalert = document.querySelector('.alert')
-    myalert.classList.add(isSuccess?'alert-success':'alert-danger')
-    myalert.innerText = msg
-    myalert.classList.add('show')
-    setTimeout(()=>{
-    myalert.classList.remove(isSuccess?'alert-success':'alert-danger')
-    myalert.innerHTML = ''
-    myalert.classList.remove('show')
-    },2000)
-  }
+  const myalert = document.querySelector('.alert')
+  myalert.classList.add(isSuccess?'alert-success':'alert-danger')
+  myalert.innerText = msg
+  myalert.classList.add('show')
+  setTimeout(()=>{
+  myalert.classList.remove(isSuccess?'alert-success':'alert-danger')
+  myalert.innerHTML = ''
+  myalert.classList.remove('show')
+  },2000)
+}

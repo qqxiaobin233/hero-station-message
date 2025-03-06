@@ -21,8 +21,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 import './index.less'
 
-
-
 import myAxios from '@/utils/request.js'
 import { Myalert } from '@/utils/alert.js'
 document.querySelector('.btn').addEventListener('click', () => {
@@ -35,7 +33,7 @@ document.querySelector('.btn').addEventListener('click', () => {
     return
   }
 
-  if (!checkCode(code)) {ox
+  if (!checkCode(code)) {
     Myalert(false,'验证码长度必须是6位')
     console.log('验证码长度必须是6位')
     return

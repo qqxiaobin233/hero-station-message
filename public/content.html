@@ -16,7 +16,7 @@
   <div class="wrap">
     <!-- 侧边栏 -->
     <div class="aside">
-      <h2>黑马头条</h2>
+      <h2>英雄站</h2>
       <ul class="nav">
         <li>
           <a href="./index.html" class="active">
@@ -27,7 +27,7 @@
         <li>
           <a href="../publish/index.html">
             <span class="iconfont icon-fabu"></span>
-            <span>发布文章</span>
+            <span>待定</span>
           </a>
         </li>
       </ul>
@@ -51,30 +51,9 @@
           <div class="body">
             <form class="sel-form">
               <div>
-                <label class="form-label">状态:</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" value="" id="all" checked>
-                  <label class="form-check-label" for="all">
-                    全部
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" value="1" id="audit">
-                  <label class="form-check-label" for="audit">
-                    待审核
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" value="2" id="approved">
-                  <label class="form-check-label" for="approved">
-                    审核通过
-                  </label>
-                </div>
-              </div>
-              <div>
                 <label class="form-label">频道:</label>
                 <select class="form-select" name="channel_id">
-                  <option selected>请选择文章频道</option>
+                  <option selected>请选择模块</option>
                   <option value="1">频道1</option>
                   <option value="2">频道2</option>
                   <option value="3">频道3</option>
@@ -91,13 +70,8 @@
           <table class="table table-striped table-hover">
             <thead>
               <tr>
-                <th>封面</th>
+                <th>图片</th>
                 <th>标题</th>
-                <th>状态</th>
-                <th>发布时间</th>
-                <th>阅读数</th>
-                <th>评论数</th>
-                <th>点赞数</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -109,22 +83,6 @@
                     alt="">
                 </td>
                 <td>文章标题</td>
-                <td>
-                  <span class="badge text-bg-success">审核通过</span>
-                  <span class="badge text-bg-primary">待审核</span>
-                </td>
-                <td>
-                  <span>2023-04-27 10:59:34</span>
-                </td>
-                <td>
-                  <span>0</span>
-                </td>
-                <td>
-                  <span>0</span>
-                </td>
-                <td>
-                  <span>0</span>
-                </td>
                 <td>
                   <i class="bi bi-pencil-square edit"></i>
                   <i class="bi bi-trash3 del"></i>
