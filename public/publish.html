@@ -19,7 +19,7 @@
   <div class="wrap">
     <!-- 侧边栏 -->
     <div class="aside">
-      <h2>黑马头条</h2>
+      <h2>英雄站</h2>
       <ul class="nav">
         <li>
           <a href="../content/index.html">
@@ -28,13 +28,13 @@
           </a>
         </li>
         <li>
-          <a href="./index.html" class="active">
+          <a href="../publish/index.html" class="active">
             <span class="iconfont icon-fabu"></span>
-            <span>发布文章</span>
+            <span>添加内容</span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="../analysis/index.html">
             <span class="iconfont icon-16"></span>
             <span>用户数据</span>
           </a>
@@ -55,22 +55,26 @@
         <!-- 发布文章 -->
         <div class="card">
           <div class="title">
-            <span>发布文章</span>
+            <span>添加内容</span>
           </div>
           <div class="body">
             <form class="art-form">
               <input type="text" name="id" hidden>
               <div>
-                <label for="title" class="form-label">标题：</label>
+                <label for="title" class="form-label">人物：</label>
                 <input type="text" class="form-control" id="title" name="title">
               </div>
               <div>
-                <label for="channel_id" class="form-label">频道：</label>
-                <select class="form-select" id="channel_id" name="channel_id">
-                  <option value="" selected>请选择文章频道</option>
-                  <option value="1">频道1</option>
-                  <option value="2">频道2</option>
-                  <option value="3">频道3</option>
+                <label class="form-label">频道:&nbsp;&nbsp;</label>
+                <select class="form-select" name="channel_id" id="mainSelect">
+                  <option selected>请选择模块</option>
+                  <option value="1">年度人物</option>
+                  <option value="2">时代英雄</option>
+                </select>
+                <select class="form-select" name="channel_id" id="subSelect" style="visibility: hidden">
+                  <option selected></option>
+                  <option value="1"></option>
+                  <option value="2"></option>
                 </select>
               </div>
               <div class="cover">
@@ -80,15 +84,25 @@
                 <img class="rounded">
               </div>
               <div>
-                <label for="">内容：</label>
+                <label for="">英雄事迹：</label>
                 <!-- 富文本编辑器位置 -->
                 <div id="editor—wrapper">
-                  <div id="toolbar-container"><!-- 工具栏 --></div>
-                  <div id="editor-container"><!-- 编辑器 --></div>
+                  <div id="toolbar-container-1"><!-- 工具栏 --></div>
+                  <div id="editor-container-1"><!-- 编辑器 --></div>
+                </div>
+                <!-- 记录富文本内容-用于表单收集 -->
+                <textarea name="content" class="publish-content" hidden></textarea>
+                <br/>
+                <label for="">颁奖致辞：</label>
+                <!-- 富文本编辑器位置 -->
+                <div id="editor—wrapper">
+                  <div id="toolbar-container-2"><!-- 工具栏 --></div>
+                  <div id="editor-container-2"><!-- 编辑器 --></div>
                 </div>
                 <!-- 记录富文本内容-用于表单收集 -->
                 <textarea name="content" class="publish-content" hidden></textarea>
               </div>
+              
               <div>
                 <button type="button" class="btn btn-primary send">发布</button>
               </div>

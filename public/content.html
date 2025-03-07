@@ -19,7 +19,7 @@
       <h2>英雄站</h2>
       <ul class="nav">
         <li>
-          <a href="./index.html" class="active">
+          <a href="../content/index.html" class="active">
             <span class="iconfont icon-16"></span>
             <span>内容管理</span>
           </a>
@@ -31,7 +31,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="../analysis/index.html">
             <span class="iconfont icon-16"></span>
             <span>用户数据</span>
           </a>
@@ -58,11 +58,15 @@
             <form class="sel-form">
               <div>
                 <label class="form-label">频道:</label>
-                <select class="form-select" name="channel_id">
+                <select class="form-select" name="channel_id" id="mainSelect">
                   <option selected>请选择模块</option>
-                  <option value="1">频道1</option>
-                  <option value="2">频道2</option>
-                  <option value="3">频道3</option>
+                  <option value="1">年度人物</option>
+                  <option value="2">时代英雄</option>
+                </select>
+                <select class="form-select" name="channel_id" id="subSelect" style="visibility: hidden">
+                  <option selected></option>
+                  <option value="1"></option>
+                  <option value="2"></option>
                 </select>
               </div>
               <div>
@@ -85,7 +89,7 @@
               </tr>
             </thead>
             <tbody class="align-middle art-list">
-              <!-- <tr>
+              <tr>
                 <td>
                   <img
                     src="https://img2.baidu.com/it/u=2640406343,1419332367&fm=253&fmt=auto&app=138&f=JPEG?w=708&h=500"
@@ -99,7 +103,7 @@
                   <i class="bi bi-pencil-square edit"></i>
                   <i class="bi bi-trash3 del"></i>
                 </td>
-              </tr> -->
+              </tr>
             </tbody>
           </table>
           <!-- 分页 -->
@@ -123,7 +127,7 @@
               </li>
             </ul>
           </nav>
-          
+
         </div>
       </div>
     </div>

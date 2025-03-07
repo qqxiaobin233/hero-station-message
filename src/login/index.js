@@ -20,7 +20,7 @@ document.querySelector('.btn').addEventListener('click', () => {
     localStorage.setItem('token',result.data.token)
     setTimeout(() => {
       location.href = '../content/index.html';
-  }, 1000);
+  }, 500);
   }).catch(error=>{
     Myalert(false,error.response.data.msg)
   })

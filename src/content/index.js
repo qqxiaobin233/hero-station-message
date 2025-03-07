@@ -2,6 +2,8 @@
 import '@/utils/auth.js'
 import './index.css'
 import axios from '@/utils/request.js'
+import '@/utils/channels.js'
+
 /**
  * 目标1：获取文章列表并展示
  *  1.1 准备查询参数对象
@@ -10,10 +12,11 @@ import axios from '@/utils/request.js'
  */
 // 1.1 准备查询参数对象
 const queryObj = {
-  status: '', // 文章状态（1-待审核，2-审核通过）空字符串-全部
-  channel_id: '', // 文章频道 id，空字符串-全部
-  page: 1, // 当前页码
-  per_page: 2 // 当前页面条数
+  page:1,
+  pageSize:2,
+  classification:0,
+  year:2023,
+  period:'疫情时期'
 }
 let totalCount = 0 // 保存文章总条数
 
@@ -21,40 +24,34 @@ let totalCount = 0 // 保存文章总条数
 async function setArtileList() {
   // 1.2 获取文章列表数据
   const res = await axios({
-    url: '/v1_0/mp/articles',
+    url: '/admin/hero/page',
     params: queryObj
   })
   // 1.3 展示到指定的标签结构中
-  const htmlStr = res.data.results.map(item => `<tr>
-  <td>
-    <img src="${item.cover.type === 0 ? `https://img2.baidu.com/it/u=2640406343,1419332367&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=708&amp;h=500`: item.cover.images[0]}" alt="">
-  </td>
-  <td>${item.title}</td>
-  <td>
-  ${item.status === 1 ? `<span class="badge text-bg-primary">待审核</span>` : `<span class="badge text-bg-success">审核通过</span>`}
-  </td>
-  <td>
-    ${item.pubdate}
-  </td>
-  <td>
-    ${item.read_count}
-  </td>
-  <td>
-    ${item.comment_count}
-  </td>
-  <td>
-    ${item.like_count}
-  </td>
-  <td data-id="${item.id}">
-    <i class="bi bi-pencil-square edit"></i>
-    <i class="bi bi-trash3 del"></i>
-  </td>
-</tr>`).join('')
-  document.querySelector('.art-list').innerHTML = htmlStr
+  const htmlStr = res.data.records.map(item => `<tr>
+    <td>
+      <img src="${item.image}" alt="">
+    </td>
+    <td>${item.heroName}</td>
+    <td>
+    <td>${item.title}</td>  
+    </td>
+    <td>
+      ${item.description || '暂无事迹描述'}
+    </td>
+    <td>
+      ${item.awardSpeech || '暂无致辞内容'}
+    </td>
+    <td data-id="${item.id}">
+      <i class="bi bi-pencil-square edit"></i>
+      <i class="bi bi-trash3 del"></i>
+    </td>
+  </tr>`).join('');
+  document.querySelector('.art-list').innerHTML = htmlStr;
 
   // 3.1 保存并设置文章总条数
-  totalCount = res.data.total_count
-  document.querySelector('.total-count').innerHTML = `共 ${totalCount} 条`
+  totalCount = res.data.total
+  document.querySelector('.total').innerHTML = `共 ${totalCount} 条`
 }
 setArtileList()
 
@@ -66,24 +63,19 @@ setArtileList()
  *  2.4 获取匹配数据，覆盖到页面展示
  */
 // 2.1 设置频道列表数据
-async function setChannleList() {
-  const res = await axios({
-    url: '/v1_0/channels'
-  })
-  const htmlStr = `<option value="" selected="">请选择文章频道</option>` + res.data.channels.map(item => `<option value="${item.id}">${item.name}</option>`).join('')
-  document.querySelector('.form-select').innerHTML = htmlStr
-}
-setChannleList()
+
 // 2.2 监听筛选条件改变，保存查询信息到查询参数对象
-// 筛选状态标记数字->change事件->绑定到查询参数对象上
-document.querySelectorAll('.form-check-input').forEach(radio => {
-  radio.addEventListener('change', e => {
-    queryObj.status = e.target.value
-  })
-})
 // 筛选频道 id -> change事件 -> 绑定到查询参数对象上
-document.querySelector('.form-select').addEventListener('change', e => {
-  queryObj.channel_id = e.target.value
+document.querySelector('#mainSelect').addEventListener('change', e => {
+  queryObj.classification = e.target.value
+})
+document.querySelector('#subSelect').addEventListener('change', e => {
+  if(queryObj.classification === '0'){
+  queryObj.year = e.target.value
+  }
+  else{
+  queryObj.period = e.target.value
+  }
 })
 // 2.3 点击筛选时，传递查询参数对象到服务器
 document.querySelector('.sel-btn').addEventListener('click', () => {
@@ -100,7 +92,7 @@ document.querySelector('.sel-btn').addEventListener('click', () => {
 // 3.2 点击下一页，做临界值判断，并切换页码参数并请求最新数据
 document.querySelector('.next').addEventListener('click', e => {
   // 当前页码小于最大页码数
-  if (queryObj.page < Math.ceil(totalCount / queryObj.per_page)) {
+  if (queryObj.page < Math.ceil(totalCount / queryObj.pageSize)) {
     queryObj.page++
     document.querySelector('.page-now').innerHTML = `第 ${queryObj.page} 页`
     setArtileList()
@@ -131,7 +123,7 @@ document.querySelector('.art-list').addEventListener('click', async e => {
     const delId = e.target.parentNode.dataset.id
     // 4.3 调用删除接口，传递文章 id 到服务器
     const res = await axios({
-      url: `/v1_0/mp/articles/${delId}`,
+      url: `/admin/hero/${delId}`,
       method: 'DELETE'
     })
 

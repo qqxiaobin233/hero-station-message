@@ -17,12 +17,12 @@ if (!token) {
  * 2.2 请求个人信息并设置到页面
  */
 // 2.2 请求个人信息并设置到页面
-axios({
-  url: '/v1_0/user/profile'
-}).then(result => {
-  const username = result.data.name
-  document.querySelector('.nick-name').innerHTML = username
-})
+// axios({
+//   url: '/v1_0/user/profile'
+// }).then(result => {
+//   const username = result.data.name
+//   document.querySelector('.nick-name').innerHTML = username
+// })
 
 /**
  * 目标3：退出登录

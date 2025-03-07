@@ -4,22 +4,7 @@ import axios from '@/utils/request.js'
 import editor from '@/utils/editor.js'
 import {Myalert} from '@/utils/alert.js'
 import serialize from 'form-serialize'
-/**
- * 目标1：设置频道下拉菜单
- *  1.1 获取频道列表数据
- *  1.2 展示到下拉菜单中
- */
-// 1.1 获取频道列表数据
-async function setChannleList() {
-  const res = await axios({
-    url: '/v1_0/channels'
-  })
-  // 1.2 展示到下拉菜单中
-  const htmlStr = `<option value="" selected="">请选择文章频道</option>` + res.data.channels.map(item => `<option value="${item.id}">${item.name}</option>`).join('')
-  document.querySelector('.form-select').innerHTML = htmlStr
-}
-// 网页运行后，默认调用一次
-setChannleList()
+import '@/utils/channels.js'
 
 /**
  * 目标2：文章封面设置
@@ -31,16 +16,18 @@ setChannleList()
 // 2.2 选择文件并保存在 FormData
 document.querySelector('.img-file').addEventListener('change', async e => {
   const file = e.target.files[0]
-  const fd = new FormData()
-  fd.append('image', file)
+    const fs = new FormData()
+    fs.append('image', file)
+    console.log(fs)
   // 2.3 单独上传图片并得到图片 URL 网址
   const res = await axios({
-    url: '/v1_0/upload',
+    url: '/admin/common/upload',
     method: 'POST',
-    data: fd
+    data: fs
   })
+  console.log(res)
   // 2.4 回显并切换 img 标签展示（隐藏 + 号上传标签）
-  const imgUrl = res.data.url
+  const imgUrl = res.data
   document.querySelector('.rounded').src = imgUrl
   document.querySelector('.rounded').classList.add('show')
   document.querySelector('.place').classList.add('hide')
@@ -65,22 +52,18 @@ document.querySelector('.send').addEventListener('click', async e => {
   const data = serialize(form, { hash: true, empty: true })
   // 发布文章的时候，不需要 id 属性，所以可以删除掉（id 为了后续做编辑使用）
   delete data.id
-  console.log(data)
   // 自己收集封面图片地址并保存到 data 对象中
-  data.cover = {
-    type: 1, // 封面类型
-    images: [document.querySelector('.rounded').src] // 封面图片 URL 网址
-  }
+  data.image = document.querySelector('.rounded').src // 封面图片 URL 网址
 
   // 3.2 基于 axios 提交到服务器保存
   try {
     const res = await axios({
-      url: '/v1_0/mp/articles',
+      url: '/admin/hero',
       method: 'POST',
       data: data
     })
     // 3.3 调用 Alert 警告框反馈结果给用户
-    myAlert(true, '发布成功')
+    Myalert(true, '发布成功')
     // 3.4 重置表单并跳转到列表页
     form.reset()
     // 封面需要手动重置
@@ -95,7 +78,7 @@ document.querySelector('.send').addEventListener('click', async e => {
     }, 1500)
 
   } catch (error) {
-    myAlert(false, error.response.data.message)
+    Myalert(false, error.response.data.message)
   }
 })
 
@@ -118,16 +101,26 @@ document.querySelector('.send').addEventListener('click', async e => {
         document.querySelector('.send').innerHTML = '修改'
         // 4.4 获取文章详情数据并回显表单
         const res = await axios({
-          url: `/v1_0/mp/articles/${value}`
+          url: `/admin/hero/${value}`
         })
         console.log(res)
         // 组织我仅仅需要的数据对象，为后续遍历回显到页面上做铺垫
         const dataObj = {
-          channel_id: res.data.channel_id,
+          classification:0,
+          year:2023,
+          period:疫情时期,
           title: res.data.title,
-          rounded: res.data.cover.images[0], // 封面图片地址
+          rounded: res.data.image, // 封面图片地址
           content: res.data.content,
           id: res.data.id
+        }
+        if(dataObj.classification === 0)
+        {
+          delete dataObj.period
+        }
+        else
+        {
+          delete dataObj.year
         }
         // 遍历数据对象属性，映射到页面元素上，快速赋值
         Object.keys(dataObj).forEach(key => {
@@ -166,14 +159,10 @@ document.querySelector('.send').addEventListener('click', async e => {
   // 5.2 调用编辑文章接口，保存信息到服务器
   try {
     const res = await axios({
-      url: `/v1_0/mp/articles/${data.id}`,
+      url: `/admin/hero/${data.id}`,
       method: 'PUT',
       data: {
-        ...data,
-        cover: {
-          type: document.querySelector('.rounded').src ? 1 : 0,
-          images: [document.querySelector('.rounded').src]
-        }
+        ...data
       }
     })
     console.log(res)

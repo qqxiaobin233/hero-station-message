@@ -11,8 +11,8 @@ const config = {
   entry: {
     'login': path.resolve(__dirname, 'src/login/index.js'),
     'content': path.resolve(__dirname, 'src/content/index.js'),
-    'publish': path.resolve(__dirname, 'src/publish/index.js')
-
+    'publish': path.resolve(__dirname, 'src/publish/index.js'),
+    'analysis': path.resolve(__dirname, 'src/analysis/index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -41,6 +41,12 @@ const config = {
       filename: path.resolve(__dirname, 'dist/publish/index.html'),
       useCdn: process.env.NODE_ENV === 'production',//生产模式下使用cdn引用的地址
       chunks: ['publish'] //引入哪些打包后的模块（和entry的key一致）
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/analysis.html'),
+      filename: path.resolve(__dirname, 'dist/analysis/index.html'),
+      useCdn: process.env.NODE_ENV === 'production',//生产模式下使用cdn引用的地址
+      chunks: ['analysis']
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
